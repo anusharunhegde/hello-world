@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Provision EC2 instance
+      ec2:
+         region: us-east-1
+         instance_type: t2.micro
+         image: ami-062f7200baf2fa504
+         wait: yes
+         wait_timeout: 50
+         count: 1
+         instance_tags:
+            Name: AWS-Ansible
+         volumes:
+            - device_name: /dev/xvda
+              volume_type: gp2
+              volume_size: 8
+         monitoring: yes
+      register: ec2
+
+
+localhost  ansible_connection=local    ansible_python_interpreter=/usr/bin/python3
